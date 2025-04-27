@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface SkillRepository extends JpaRepository<Skill, Long> {
     Optional<Skill> findByName(String name);
     List<Skill> findByCategory(Skill.SkillCategory category);
-    boolean existsByName(String name); // Required for duplicate check
+    boolean existsByName(String name);
 }

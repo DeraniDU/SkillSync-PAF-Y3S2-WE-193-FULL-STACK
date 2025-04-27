@@ -1,5 +1,6 @@
 package SkillSync_PAF_Y3S2_WE_193_BE.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -35,18 +36,22 @@ public class Skill {
 
     @ManyToMany(mappedBy = "skills", fetch = FetchType.LAZY)
     @Builder.Default
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
     @ManyToMany(mappedBy = "requiredSkills", fetch = FetchType.LAZY)
     @Builder.Default
+    @JsonIgnore
     private Set<Project> projects = new HashSet<>();
+
+    @Transient
+    public int getPopularityScore() {
+        return (users != null ? users.size() : 0) +
+                (projects != null ? projects.size() : 0);
+    }
 
     public enum SkillCategory {
         TECHNICAL, DESIGN, BUSINESS, LANGUAGE, OTHER
-    }
-
-    public int getPopularityScore() {
-        return users.size() + projects.size();
     }
 
     @Override

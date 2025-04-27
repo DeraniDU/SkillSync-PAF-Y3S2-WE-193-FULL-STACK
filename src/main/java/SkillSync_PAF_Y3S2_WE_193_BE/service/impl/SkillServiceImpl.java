@@ -1,7 +1,7 @@
 package SkillSync_PAF_Y3S2_WE_193_BE.service.impl;
 
-import SkillSync_PAF_Y3S2_WE_193_BE.model.Skill;
-import SkillSync_PAF_Y3S2_WE_193_BE.repository.SkillRepository;
+import SkillSync_PAF_Y3S2_WE_193_BE.model.*;
+import SkillSync_PAF_Y3S2_WE_193_BE.repository.*;
 import SkillSync_PAF_Y3S2_WE_193_BE.service.SkillService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,12 +11,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class SkillServiceImpl implements SkillService {
 
     private final SkillRepository skillRepository;
+    private final UserRepository userRepository;
+    private final ProjectRepository projectRepository;
 
     @Override
-    @Transactional
     public Skill createSkill(Skill skill) {
         if (skillRepository.existsByName(skill.getName())) {
             throw new IllegalArgumentException("Skill already exists with name: " + skill.getName());
@@ -47,7 +49,6 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    @Transactional
     public Skill updateSkill(Long id, Skill skillDetails) {
         Skill existingSkill = getSkillById(id);
 
@@ -64,9 +65,30 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    @Transactional
     public void deleteSkill(Long id) {
         Skill skill = getSkillById(id);
         skillRepository.delete(skill);
+    }
+
+    @Override
+    public Skill addUserToSkill(Long skillId, Long userId) {
+        Skill skill = getSkillById(skillId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
+
+        skill.getUsers().add(user);
+        user.getSkills().add(skill);
+        return skillRepository.save(skill);
+    }
+
+    @Override
+    public Skill addProjectToSkill(Long skillId, Long projectId) {
+        Skill skill = getSkillById(skillId);
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new IllegalArgumentException("Project not found with ID: " + projectId));
+
+        skill.getProjects().add(project);
+        project.getRequiredSkills().add(skill);
+        return skillRepository.save(skill);
     }
 }

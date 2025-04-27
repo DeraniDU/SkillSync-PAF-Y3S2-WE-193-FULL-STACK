@@ -11,4 +11,6 @@ public interface SkillService {
     List<Skill> getSkillsByCategory(Skill.SkillCategory category);
     Skill updateSkill(Long id, Skill skillDetails);
     void deleteSkill(Long id);
+    Skill addUserToSkill(Long skillId, Long userId);
+    Skill addProjectToSkill(Long skillId, Long projectId);
 }
