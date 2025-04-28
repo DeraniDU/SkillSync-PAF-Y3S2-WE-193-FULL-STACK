@@ -1,10 +1,10 @@
-package SkillSync_PAF_Y3S2_WE_193_BE;
+package com.SkillSync.user_services;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SkillSyncPafY3S2We193BeApplicationTests {
+class UserServicesApplicationTests {
 
 	@Test
 	void contextLoads() {
