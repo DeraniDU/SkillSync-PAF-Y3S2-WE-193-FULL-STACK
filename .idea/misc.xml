@@ -5,6 +5,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/backend/user-services/pom.xml" />
+        <option value="$PROJECT_DIR$/backend/notification-management/pom.xml" />
       </list>
     </option>
   </component>
