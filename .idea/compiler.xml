@@ -7,14 +7,31 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="post-creating" />
+        <module name="activity-tracking" />
+        <module name="project-management" />
+        <module name="colab-request" />
+        <module name="social-features" />
         <module name="notification-management" />
+        <module name="api-gateway" />
         <module name="user-services" />
+        <module name="skill-catlog" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Project-Management" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="activity-tracking" options="-parameters" />
+      <module name="api-gateway" options="-parameters" />
+      <module name="colab-request" options="-parameters" />
       <module name="notification-management" options="-parameters" />
+      <module name="post-creating" options="-parameters" />
+      <module name="project-management" options="-parameters" />
+      <module name="skill-catlog" options="-parameters" />
+      <module name="social-features" options="-parameters" />
       <module name="user-services" options="-parameters" />
     </option>
   </component>
