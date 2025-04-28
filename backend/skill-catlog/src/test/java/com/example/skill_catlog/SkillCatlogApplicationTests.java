@@ -1,10 +1,10 @@
-package com.SkillSync.Project_Management;
+package com.example.skill_catlog;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProjectManagementApplicationTests {
+class SkillCatlogApplicationTests {
 
 	@Test
 	void contextLoads() {
