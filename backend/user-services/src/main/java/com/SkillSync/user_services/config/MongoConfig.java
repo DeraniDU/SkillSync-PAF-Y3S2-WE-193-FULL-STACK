@@ -1,11 +1,23 @@
 package com.SkillSync.user_services.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-@EnableMongoRepositories(basePackages = "com.SkillSync.user_services.repo")
+@EnableMongoAuditing
 public class MongoConfig {
-    // The MongoTemplate bean is automatically created by Spring Boot
-    // when using spring.data.mongodb.uri in application.properties
+
+    @Bean
+    public ValidatingMongoEventListener validatingMongoEventListener(
+            LocalValidatorFactoryBean factory) {
+        return new ValidatingMongoEventListener(factory);
+    }
+
+    @Bean
+    public LocalValidatorFactoryBean validator() {
+        return new LocalValidatorFactoryBean();
+    }
 }
