@@ -1,15 +1,24 @@
 package com.SkillSync.user_services.service;
 
-import com.SkillSync.user_services.dto.*;
-import com.SkillSync.user_services.entity.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.SkillSync.user_services.dto.UserDTO;
+import com.SkillSync.user_services.model.User;
 
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 
-public interface UserService extends UserDetailsService {
-    UserDto registerUser(UserRegistrationDto registrationDto);
-    UserDto registerUser(UserDto userDto);
-    LoginResponse loginUser(LoginRequest loginRequest);
-    UserDto getCurrentUser();
-    User processOAuth2User(String provider, Map<String, Object> attributes);
+public interface UserService {
+
+    User save(User user);
+
+    Optional<User> findById(String id);
+
+    Optional<User> findByEmail(String email);
+
+    Optional<User> findByGoogleId(String googleId);
+
+    List<UserDTO> findAll();
+
+    void delete(String id);
+
+    UserDTO update(String id, UserDTO userDTO);
 }
