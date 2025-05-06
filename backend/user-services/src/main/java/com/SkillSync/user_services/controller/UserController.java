@@ -79,4 +79,10 @@ public class UserController {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/api/public/test-user")
+    public ResponseEntity<User> createTestUser(@RequestBody User user) {
+        User savedUser = userService.save(user);
+        return ResponseEntity.ok(savedUser);
+    }
 }
