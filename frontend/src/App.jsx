@@ -1,7 +1,21 @@
-export default function App() {
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import Dashboard from './pages/DashboardPage.jsx';
+import OAuth2RedirectHandler from './components/OAuth2RedirectHandler';
+import { AuthProvider } from './context/AuthContext';
+
+function App() {
     return (
-        <h1 className="text-3xl font-bold underline">
-            Hello world!
-        </h1>
-    )
+        <AuthProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
+                </Routes>
+            </BrowserRouter>
+        </AuthProvider>
+    );
 }
+
+export default App;

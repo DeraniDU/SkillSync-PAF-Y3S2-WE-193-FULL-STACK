@@ -12,10 +12,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
@@ -33,7 +31,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String picture = (String) attributes.get("picture");
         String googleId = (String) attributes.get("sub");
 
+        // First try to find by googleId, then by email
         Optional<User> userOptional = userService.findByGoogleId(googleId);
+        if (userOptional.isEmpty()) {
+            userOptional = userService.findByEmail(email);
+        }
+
         User user;
 
         if (userOptional.isPresent()) {
@@ -41,6 +44,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             user = userOptional.get();
             user.setName(name);
             user.setPicture(picture);
+            user.setGoogleId(googleId);
             user.setUpdatedAt(LocalDateTime.now());
         } else {
             // Create new user
@@ -49,7 +53,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             user.setName(name);
             user.setPicture(picture);
             user.setGoogleId(googleId);
-            user.setRoles(new HashSet<>(Collections.singletonList("ROLE_USER")));
+
+// Use Set<String> to match User class
+            Set<String> roles = new HashSet<>();
+            roles.add("ROLE_USER");
+            user.setRoles(roles);
+
+
             user.setCreatedAt(LocalDateTime.now());
             user.setUpdatedAt(LocalDateTime.now());
         }
@@ -57,8 +67,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         User savedUser = userService.save(user);
 
         return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
+                savedUser.getRoles().stream()
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toSet()),
                 attributes,
                 "email");
     }
 }
+
+
