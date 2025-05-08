@@ -40,12 +40,15 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated())
                 .oauth2Login(oauth2 -> oauth2
+                        .authorizationEndpoint(authEndpoint ->
+                                authEndpoint.baseUri("/oauth2/authorize"))
                         .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
                         .successHandler(oAuth2AuthenticationSuccessHandler))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
+
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
