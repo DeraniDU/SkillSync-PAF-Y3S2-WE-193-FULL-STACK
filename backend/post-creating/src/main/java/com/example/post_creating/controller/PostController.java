@@ -1,6 +1,6 @@
-// src/main/java/com/example/post_creating/controller/PostController.java
 package com.example.post_creating.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import com.example.post_creating.dto.PostDto;
 import com.example.post_creating.model.Post;
 import com.example.post_creating.service.PostService;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000") // <-- This line allows React frontend to access your API
 @RestController
 @RequestMapping("/api/posts")
 @AllArgsConstructor
