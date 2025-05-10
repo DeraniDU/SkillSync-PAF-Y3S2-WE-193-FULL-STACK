@@ -1,5 +1,6 @@
 package com.SkillSync.notification_management.Model;
 
+
 import java.time.LocalDateTime;
 
 public class Notification {
