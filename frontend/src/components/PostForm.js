@@ -11,6 +11,8 @@ export default function PostForm({ onSubmit, initialData = {}, loading, onCancel
         onSubmit({ caption, prerequisites, tags, skills });
     };
 
+    //this is
+
     return (
         <form className="bg-white p-6 rounded shadow-md space-y-4" onSubmit={handleSubmit}>
             <div>
