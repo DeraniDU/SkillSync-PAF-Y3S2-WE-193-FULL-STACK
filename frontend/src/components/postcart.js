@@ -24,6 +24,7 @@ const PostCardList = () => {
             });
     };
 
+    //haddle likes
     const handleLike = (postId, userId = 1) => {
         fetch("http://localhost:8083/api/v1/likes", {
             method: "POST",
