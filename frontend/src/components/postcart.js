@@ -70,7 +70,7 @@ const PostCard = ({ onSubmit, loading, onCancel }) => {
                 </button>
             </div>
         </form>
-    );
+    );//kmnkghkmhgk
 };
 
 export default PostCard;
