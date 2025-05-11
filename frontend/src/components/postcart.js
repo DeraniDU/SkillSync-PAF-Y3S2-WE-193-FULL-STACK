@@ -14,6 +14,7 @@ const PostCardList = () => {
                 posts.forEach((post) => fetchLikes(post.postId));
             });
     }, []);
+    //fetching likes from db
 
     const fetchLikes = (postId) => {
         fetch(`http://localhost:8083/api/v1/likes?postId=${postId}`)
