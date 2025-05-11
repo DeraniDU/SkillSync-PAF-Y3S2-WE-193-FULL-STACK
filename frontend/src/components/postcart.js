@@ -6,7 +6,7 @@ const PostCardList = () => {
     const [likes, setLikes] = useState({});
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/v1/skill-posts")
+        fetch("localhost:8083/api/v1/skill-posts")
             .then((res) => res.json())
             .then((data) => {
                 const posts = data.content || [];
@@ -16,7 +16,7 @@ const PostCardList = () => {
     }, []);
 
     const fetchLikes = (postId) => {
-        fetch(`http://localhost:8080/api/v1/likes?postId=${postId}`)
+        fetch(`http://localhost:8083/api/v1/likes?postId=${postId}`)
             .then((res) => res.json())
             .then((data) => {
                 setLikes((prev) => ({ ...prev, [postId]: data.content.length }));
@@ -24,7 +24,7 @@ const PostCardList = () => {
     };
 
     const handleLike = (postId, userId = 1) => {
-        fetch("http://localhost:8080/api/v1/likes", {
+        fetch("http://localhost:8083/api/v1/likes", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ postId, userId })
