@@ -1,76 +1,62 @@
-// src/components/PostForm.jsx
-import React, { useState } from "react";
+// src/components/PostCardList.jsx
+import React, { useEffect, useState } from "react";
 
-const PostCard = ({ onSubmit, loading, onCancel }) => {
-    const [formData, setFormData] = useState({
-        title: "",
-        description: "",
-        userId: ""
-    });
+const PostCardList = () => {
+    const [posts, setPosts] = useState([]);
+    const [likes, setLikes] = useState({});
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+    useEffect(() => {
+        fetch("http://localhost:8080/api/v1/skill-posts")
+            .then((res) => res.json())
+            .then((data) => {
+                const posts = data.content || [];
+                setPosts(posts);
+                posts.forEach((post) => fetchLikes(post.postId));
+            });
+    }, []);
+
+    const fetchLikes = (postId) => {
+        fetch(`http://localhost:8080/api/v1/likes?postId=${postId}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setLikes((prev) => ({ ...prev, [postId]: data.content.length }));
+            });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onSubmit(formData);
+    const handleLike = (postId, userId = 1) => {
+        fetch("http://localhost:8080/api/v1/likes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ postId, userId })
+        })
+            .then(() => fetchLikes(postId));
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-                <label className="block font-semibold mb-1">Title</label>
-                <input
-                    className="border p-2 w-full rounded"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label className="block font-semibold mb-1">Description</label>
-                <textarea
-                    className="border p-2 w-full rounded"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    required
-                ></textarea>
-            </div>
-            <div>
-                <label className="block font-semibold mb-1">User ID</label>
-                <input
-                    className="border p-2 w-full rounded"
-                    name="userId"
-                    type="number"
-                    value={formData.userId}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div className="flex justify-end gap-2">
-                <button
-                    type="button"
-                    className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
-                    onClick={onCancel}
+        <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.map((post) => (
+                <div
+                    key={post.postId}
+                    className="bg-white rounded-lg shadow-md p-4 border border-gray-200"
                 >
-                    Cancel
-                </button>
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
-                >
-                    {loading ? "Saving..." : "Add Post"}
-                </button>
-            </div>
-        </form>
-    );//kmnkghkmhgk
+                    <h2 className="text-lg font-semibold mb-2">{post.title}</h2>
+                    <p className="text-sm text-gray-700 mb-2">{post.description}</p>
+                    <p className="text-xs text-gray-500 mb-4">User ID: {post.userId}</p>
+                    <div className="flex justify-between items-center">
+                        <button
+                            onClick={() => handleLike(post.postId)}
+                            className="text-blue-600 hover:text-blue-800"
+                        >
+                            👍 Like
+                        </button>
+                        <span className="text-sm text-gray-600">
+              {likes[post.postId] || 0} likes
+            </span>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
 };
 
-export default PostCard;
+export default PostCardList;
