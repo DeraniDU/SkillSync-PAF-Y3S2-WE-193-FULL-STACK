@@ -1,14 +1,76 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import AuthService from "../services/auth.service";
 
-export default function NavBar({ darkMode }) {
-    return (
-        <nav className={`${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} shadow-md`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-center h-16">
-                    {/* Center - Logo Only */}
-                    <h1 className={`text-xl font-bold ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>SkillSync</h1>
-                </div>
-            </div>
-        </nav>
-    );
-}
+const NavBar = () => {
+  const [currentUser, setCurrentUser] = useState(undefined);
+
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+    }
+  }, []);
+
+  const logOut = () => {
+    AuthService.logout();
+    setCurrentUser(undefined);
+    window.location.reload();
+  };
+
+  return (
+    <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <div className="container">
+        <Link to={"/"} className="navbar-brand">
+          AuthApp
+        </Link>
+        <div className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to={"/home"} className="nav-link">
+              Home
+            </Link>
+          </li>
+
+          {currentUser && (
+            <li className="nav-item">
+              <Link to={"/profile"} className="nav-link">
+                Profile
+              </Link>
+            </li>
+          )}
+        </div>
+
+        {currentUser ? (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to={"/profile"} className="nav-link">
+                {currentUser.username}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <a href="/login" className="nav-link" onClick={logOut}>
+                LogOut
+              </a>
+            </li>
+          </div>
+        ) : (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to={"/login"} className="nav-link">
+                Login
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link to={"/register"} className="nav-link">
+                Sign Up
+              </Link>
+            </li>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+export default NavBar;
