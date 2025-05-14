@@ -6,7 +6,7 @@ const PostCardList = () => {
     const [likes, setLikes] = useState({});
 
     useEffect(() => {
-        fetch("localhost:8083/api/v1/skill-posts")
+        fetch("${process.env.REACT_APP_API_URL}/api/v1/skill-posts")
             .then((res) => res.json())
             .then((data) => {
                 const posts = data.content || [];
@@ -17,7 +17,7 @@ const PostCardList = () => {
     //fetching likes from db
 
     const fetchLikes = (postId) => {
-        fetch(`http://localhost:8083/api/v1/likes?postId=${postId}`)
+        fetch(`http://localhost:8085/api/v1/likes?postId=${postId}`)
             .then((res) => res.json())
             .then((data) => {
                 setLikes((prev) => ({ ...prev, [postId]: data.content.length }));
@@ -26,7 +26,7 @@ const PostCardList = () => {
 
     //haddle likes
     const handleLike = (postId, userId = 1) => {
-        fetch("http://localhost:8083/api/v1/likes", {
+        fetch("${process.env.REACT_APP_API_URL}/api/v1/likes", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ postId, userId })
@@ -60,5 +60,5 @@ const PostCardList = () => {
         </div>
     );
 };
-
+//this is not the correct frontend
 export default PostCardList;
