@@ -32,6 +32,8 @@ const Login = () => {
 
         AuthService.login(username, password)
             .then(() => {
+                // Dispatch custom event to notify auth change
+                window.dispatchEvent(new Event("auth-change"));
                 navigate("/profile");
             })
             .catch((error) => {
