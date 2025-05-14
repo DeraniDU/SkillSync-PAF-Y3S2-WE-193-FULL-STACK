@@ -24,24 +24,7 @@ const PostCardList = () => {
             });
     };
 
-    //useEffect(() => {
-    //         fetch("${process.env.REACT_APP_API_URL}/api/v1/skill-posts")
-    //             .then((res) => res.json())
-    //             .then((data) => {
-    //                 const posts = data.content || [];
-    //                 setPosts(posts);
-    //                 posts.forEach((post) => fetchLikes(post.postId));
-    //             });
-    //     }, []);
-    //     //fetching likes from db
-    //
-    //     const fetchLikes = (postId) => {
-    //         fetch(`http://localhost:8085/api/v1/likes?postId=${postId}`)
-    //             .then((res) => res.json())
-    //             .then((data) => {
-    //                 setLikes((prev) => ({ ...prev, [postId]: data.content.length }));
-    //             });
-    //haddle likes
+
     const handleLike = (postId, userId = 1) => {
         fetch("${process.env.REACT_APP_API_URL}/api/v1/likes", {
             method: "POST",
