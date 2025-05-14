@@ -13,13 +13,13 @@
         <module name="social-features" />
         <module name="notification-management" />
         <module name="api-gateway" />
+        <module name="user-services" />
         <module name="skill-catlog" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="project-management" target="17" />
       <module name="Project-Management" target="17" />
-      <module name="user-services" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

@@ -1,40 +1,60 @@
 label {
   display: block;
-  margin-top: 10px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: 6px;
 }
 
 .card-container.card {
-  max-width: 400px !important;
-  padding: 40px 40px;
+  max-width: 450px !important;
+  padding: 32px;
+  margin: 50px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.card-container.card:hover {
+  transform: translateY(-4px);
 }
 
 .card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  background-color: var(--card-bg);
+  padding: 24px;
+  margin: 0 auto 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
 }
 
 .profile-img-card {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 10px;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 16px;
   display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
+  border: 2px solid var(--border-color);
+  transition: border-color 0.2s ease;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .btn {
-  margin-top: 10px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 10px 16px;
+  transition: all 0.2s ease;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.alert {
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 0.875rem;
 }
