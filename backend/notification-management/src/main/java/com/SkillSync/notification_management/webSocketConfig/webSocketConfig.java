@@ -11,7 +11,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class webSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic"); // For broadcasting messages
+        config.enableSimpleBroker("/topic", "/queue"); // For broadcasting messages
         config.setApplicationDestinationPrefixes("/app"); // For client to send messages
     }
 

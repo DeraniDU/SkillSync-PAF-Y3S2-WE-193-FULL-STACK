@@ -4,6 +4,7 @@ import com.SkillSync.notification_management.Model.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +18,8 @@ public class NotificationController {
     private SimpMessagingTemplate messagingTemplate;
 
     // Call this method when a like or comment happens
-    public Notification sendNotification(@DestinationVariable String userId, Notification notification) {
-        // Process the notification and send it to the user-specific topic
-        return notification;
+    @MessageMapping("/notify/{userId}")
+    public void sendNotification(@DestinationVariable("userId") String userId, Notification notification) {
+        messagingTemplate.convertAndSendToUser(userId, "/queue/notifications", notification);
     }
 }
