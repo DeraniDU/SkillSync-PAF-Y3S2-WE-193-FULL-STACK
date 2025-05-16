@@ -9,7 +9,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="post-creating" />
         <module name="activity-tracking" />
-        <module name="project-management" />
         <module name="colab-request" />
         <module name="social-features" />
         <module name="notification-management" />
@@ -19,6 +18,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="project-management" target="17" />
       <module name="Project-Management" target="17" />
     </bytecodeTargetLevel>
   </component>
