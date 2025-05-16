@@ -11,6 +11,7 @@ public class LikeRequestDto {
     private Long postId;
 
     // Getters and Setters
+
     public Long getUserId() {
         return userId;
     }
