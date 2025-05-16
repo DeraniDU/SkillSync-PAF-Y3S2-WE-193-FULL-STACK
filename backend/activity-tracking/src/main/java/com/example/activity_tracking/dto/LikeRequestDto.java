@@ -3,7 +3,7 @@ package com.example.activity_tracking.dto;
 import jakarta.validation.constraints.NotNull;
 
 public class LikeRequestDto {
-
+//insalling likes with userID and PostID
     @NotNull(message = "User ID is required")
     private Long userId;
 
