@@ -12,7 +12,7 @@ public class SkillMatchResponseDTO {
     private List<String> matchedSkills;
     private List<String> missingSkills;
 
-    // Getters and Setters
+
     public String getUserId() {
         return userId;
     }
