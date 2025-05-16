@@ -47,7 +47,7 @@ public class SkillController {
         return ResponseEntity.ok(skillService.getSkillById(id));
     }
 
-    // Update skill
+
     @PutMapping("/{id}")
     public ResponseEntity<SkillResponse> updateSkill(
             @PathVariable String id,
@@ -55,7 +55,7 @@ public class SkillController {
         return ResponseEntity.ok(skillService.updateSkill(id, request));
     }
 
-    // Delete skill
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSkill(@PathVariable String id) {
         skillService.deleteSkill(id);
