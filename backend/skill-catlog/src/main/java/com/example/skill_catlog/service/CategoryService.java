@@ -50,7 +50,7 @@ public class CategoryService {
         SkillCategory category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + id));
 
-        // Check if category has associated skills
+
         if (category.getSkills() != null && !category.getSkills().isEmpty()) {
             throw new IllegalStateException("Cannot delete category with associated skills");
         }
