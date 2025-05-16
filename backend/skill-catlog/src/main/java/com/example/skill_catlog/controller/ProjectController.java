@@ -17,14 +17,14 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    // Create a new project
+
     @PostMapping
     public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectDTO projectDTO) {
         ProjectDTO createdProject = projectService.createProject(projectDTO);
         return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
     }
 
-    // Get all projects
+
     @GetMapping
     public ResponseEntity<List<ProjectDTO>> getAllProjects() {
         List<ProjectDTO> projects = projectService.getAllProjects();
@@ -54,7 +54,7 @@ public class ProjectController {
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 
-    // Update project
+
     @PutMapping("/{id}")
     public ResponseEntity<ProjectDTO> updateProject(
             @PathVariable String id,
@@ -63,7 +63,7 @@ public class ProjectController {
         return new ResponseEntity<>(updatedProject, HttpStatus.OK);
     }
 
-    // Delete project
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable String id) {
         projectService.deleteProject(id);
