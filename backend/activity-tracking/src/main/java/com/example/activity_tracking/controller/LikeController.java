@@ -14,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/likes")
+//get all likes from
 public class LikeController {
 
     private final LikeService likeService;
@@ -47,6 +48,8 @@ public class LikeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    //get all likes
+
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllLikes(
             @RequestParam(defaultValue = "0") int page,
@@ -54,6 +57,8 @@ public class LikeController {
         Map<String, Object> response = likeService.getAllLikes(page, size);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    //likes by id
 
     @GetMapping(params = "postId")
     public ResponseEntity<Map<String, Object>> getLikesByPostId(
