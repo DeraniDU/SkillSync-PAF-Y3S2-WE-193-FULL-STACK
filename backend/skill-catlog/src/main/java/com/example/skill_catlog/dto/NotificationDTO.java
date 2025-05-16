@@ -12,7 +12,7 @@ public class NotificationDTO {
     private Date createdAt;
     private boolean read;
 
-    // Getters and Setters
+
     public String getId() {
         return id;
     }
