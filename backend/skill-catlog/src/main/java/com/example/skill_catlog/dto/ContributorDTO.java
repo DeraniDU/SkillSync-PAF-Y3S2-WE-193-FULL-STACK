@@ -10,7 +10,7 @@ public class ContributorDTO {
     private String status;
     private String role;
 
-    // Getters and Setters
+
     public String getId() {
         return id;
     }
